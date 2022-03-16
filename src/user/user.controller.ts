@@ -1,12 +1,14 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Controller('users')
 export class UserController {
 
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt')) // refernce name = jwt from jwt.strategy
     @Get("me")
-    getMe(){
+    getMe(@Req() req: Request){
+        console.log({user: req.user})
         return 'user info'
     }
 }
